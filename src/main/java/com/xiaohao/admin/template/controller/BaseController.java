@@ -24,4 +24,12 @@ public class BaseController {
         return "basic";
     }
 
+    @RequestMapping("frame")
+    public String frame(){
+
+        System.out.println("test");
+
+        return "frame";
+    }
+
 }
