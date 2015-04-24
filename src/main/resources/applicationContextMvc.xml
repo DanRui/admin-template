@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <!-- 默认的注解映射的支持 -->
+    <mvc:annotation-driven />
+    <context:component-scan base-package="com.xiaohao.admin.template" />
+
+    <!-- 配置velocity引擎 -->
+    <bean id="velocityConfigurer"
+          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/views/" /><!-- 模板存放的路径 -->
+        <property name="configLocation" value="classpath:velocity.properties" />
+    </bean>
+
+    <!-- 配置视图的显示 -->
+    <bean id="ViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+        <property name="suffix" value=".vm" /><!-- 视图文件的后缀名 -->
+        <property name="dateToolAttribute" value="date" /><!--日期函数名称-->
+        <property name="numberToolAttribute" value="number" /><!--数字函数名称-->
+        <property name="contentType" value="text/html;charset=UTF-8" />
+        <property name="exposeSpringMacroHelpers" value="true" /><!--是否使用spring对宏定义的支持-->
+        <property name="exposeRequestAttributes" value="true" /><!--是否开放request属性-->
+        <property name="requestContextAttribute" value="rc"/><!--request属性引用名称-->
+        <property name="layoutUrl" value="layout/default.vm"/><!--指定layout文件-->
+        <property name="layoutKey" value="layout" />
+        <property name="screenContentKey" value="screen_content" />
+    </bean>
+
+    <!--&lt;!&ndash; 视图解释类 &ndash;&gt;-->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="prefix" value="/WEB-INF/"/>-->
+        <!--<property name="suffix" value=".jsp"/>&lt;!&ndash;可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  &ndash;&gt;-->
+        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />-->
+    <!--</bean>-->
+    <!-- springMvc总的错误处理-->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"
+          p:defaultErrorView="/error/error"
+          p:defaultStatusCode="500"
+          p:warnLogCategory="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    </bean>
+
+    <!--对静态资源文件的访问-->
+    <mvc:resources mapping="/easyui/**" location="/easyui/" />
+
+    <!--配置spring 支持文件上传-->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:maxUploadSize="50000"></bean>
+
+</beans>
