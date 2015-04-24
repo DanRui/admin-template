@@ -42,12 +42,6 @@
         <property name="screenContentKey" value="screen_content" />
     </bean>
 
-    <!--&lt;!&ndash; 视图解释类 &ndash;&gt;-->
-    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-        <!--<property name="prefix" value="/WEB-INF/"/>-->
-        <!--<property name="suffix" value=".jsp"/>&lt;!&ndash;可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  &ndash;&gt;-->
-        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />-->
-    <!--</bean>-->
     <!-- springMvc总的错误处理-->
     <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"
           p:defaultErrorView="/error/error"
@@ -57,6 +51,8 @@
 
     <!--对静态资源文件的访问-->
     <mvc:resources mapping="/easyui/**" location="/easyui/" />
+    <!--对静态资源文件的访问-->
+    <mvc:resources mapping="/page/**" location="/page/" />
 
     <!--配置spring 支持文件上传-->
     <bean id="multipartResolver"
