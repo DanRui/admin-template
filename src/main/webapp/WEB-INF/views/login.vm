@@ -1,4 +1,9 @@
 #override("body")
 
+<div style="width: 200px;height: 100;margin: 300px auto;padding: 20 80;">
+     用户名:<input/><br/>
+     密码:<input/><br/>
+</div>
+
 #end
 #extends("common/parent.vm")

@@ -32,4 +32,12 @@ public class BaseController {
         return "frame";
     }
 
+    @RequestMapping("login")
+    public String login(){
+
+        System.out.println("test");
+
+        return "login";
+    }
+
 }
